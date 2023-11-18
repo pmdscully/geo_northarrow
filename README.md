@@ -1,5 +1,5 @@
 # geo_northarrow
-Simple North arrow geometry for GIS plotting in python (GeoPlot, Geopandas, etc.)
+Simple North arrow geometry for GIS plotting in Python. Compatible with GeoPlot, Geopandas, and libraries built on Matplotlib.
 
 ![image](https://github.com/pmdscully/geo_northarrow/assets/3637403/4b31b277-1e9b-4af7-8da2-5fba1cc2d250)
 
@@ -9,7 +9,28 @@ Simple North arrow geometry for GIS plotting in python (GeoPlot, Geopandas, etc.
 - numpy
 - matplotlib
 
-## Example code:
+
+## Example 1 Geopandas Plotting code:
+See original example: https://geopandas.org/en/stable/docs/user_guide/mapping.html
+```python
+import geopandas
+import geodatasets
+from geo_northarrow import add_north_arrow
+
+chicago = geopandas.read_file(geodatasets.get_path("geoda.chicago_commpop"))
+groceries = geopandas.read_file(geodatasets.get_path("geoda.groceries"))
+display(chicago.head())
+ax = chicago.plot(column="POP2010");
+
+add_north_arrow(ax, scale=.75, xlim_pos=.9025, ylim_pos=.965, color='#000', text_scaler=4, text_yT=-1.25)
+```
+##### Output:
+![image](https://github.com/pmdscully/geo_northarrow/assets/3637403/091d1f15-5638-4034-815f-dc6ef334a0a5)
+
+
+
+
+## Example 2 code:
 ```python
 import matplotlib.pyplot as plt
 import geopandas
@@ -46,3 +67,13 @@ ax.set_facecolor((1.0, 0.47, 0.42))
 - text_scaler=1.0,   - Secondary scale multiplier for the 'N' character, for customized sizing.
 - text_yT=1.0        - Fine tuning of the y-axis position for the 'N' character, for customized positioning.
 ```
+
+## How it works:
+The function just plots a polygon into the matplotlib axes. The north arrow is composed of 3 sub-polygons (left triangle, right triangle and a serif 'N' character as a polygon) and default layer-ordering (z-order) is used. 
+
+- To make things simpler, **the function attempts to scale and transform** the north arrow (with N character) according to a benchmarked-relative size, relative to the axis lengths of your GIS data plot. Therefore, call `add_north_arrow()` **after plotting your main map data content** (or after defining the axis limits - `ax.set_xlim(0,1)`/ `ax.set_ylim(0,1)`).
+- However, the `north_arrow` is only suitable for maps with `north-south axis` that is identical to the `matplotlib yaxis`, as the orientation for north is not extracted from map data.
+- It is isolated from other plot artefacts, so easy to add alongside `scalebar` (e.g. see [https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html](https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html))
+
+# LIMITATIONS:
+- **No attempt is made to determine the north orientation from your map or data.** Therefore this `north_arrow` is only suitable for maps with `north-south axis` that is identical to the `matplotlib yaxis`. Currently the function doesn't have an angle input to rotate the arrow, but it should be possible to add the rotation.
