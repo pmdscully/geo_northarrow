@@ -1,1 +1,1 @@
-from plot import add_north_arrow
+from .plot import add_north_arrow
