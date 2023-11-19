@@ -81,5 +81,6 @@ The function just plots a polygon into the matplotlib axes. The north arrow is c
 - However, the `north_arrow` is only suitable for maps with `north-south axis` that is identical to the `matplotlib yaxis`, as the orientation for north is not extracted from map data.
 - It is isolated from other plot artefacts, so easy to add alongside `scalebar` (e.g. see [https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html](https://geopandas.org/en/stable/gallery/matplotlib_scalebar.html))
 
-# LIMITATIONS:
-- **No attempt is made to determine the north orientation from your map or data.** Therefore this `north_arrow` is only suitable for maps with `north-south axis` that is identical to the `matplotlib yaxis`. Currently the function doesn't have an angle input to rotate the arrow, but it should be possible to add the rotation.
+# LIMITATIONS / FUTURE WORK:
+1. **No attempt is made to determine the north orientation from your map or data.** Therefore this `north_arrow` is only suitable for maps with `north-south axis` that is identical to the `matplotlib yaxis`. In future, add an angle input to rotate the arrow in terms of north orientation.
+2. Replace `shapely` and `geopandas` depedencies with pure [`matplotlib` Polygon plotting](https://stackoverflow.com/a/26935798/1910555).
