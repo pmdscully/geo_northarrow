@@ -14,7 +14,7 @@ setup(
     description='Python package of geo_northarrow for inserting north arrow polygons into geopandas, geoplot, matplotlib maps.',
     long_description=readme,
     author='Peter Scully',
-    author_email='pmdscully+geo_northarrow@gmail.com',
+    author_email='',
     url='https://github.com/pmdscully/geo_northarrow/',
     license=license,
     packages=find_packages(exclude=('tests', 'docs'))
