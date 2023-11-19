@@ -1,0 +1,5 @@
+shapely
+geopandas
+pandas
+numpy
+matplotlib
