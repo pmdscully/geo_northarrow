@@ -9,6 +9,11 @@ Simple North arrow geometry for GIS plotting in Python. Compatible with GeoPlot,
 - numpy
 - matplotlib
 
+## Installation:
+(Use `!pip` for notebook installations, Jupyter, Colab, etc.)
+```
+pip install git+https://github.com/pmdscully/geo_northarrow.git
+```
 
 ## Example 1 Geopandas Plotting code:
 See original example: https://geopandas.org/en/stable/docs/user_guide/mapping.html
