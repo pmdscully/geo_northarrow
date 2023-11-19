@@ -1,0 +1,10 @@
+[project]
+name = "geo_northarrow"
+version = "v0.2.0-alpha"
+dependencies = [
+    "shapely",
+    'pandas',
+    'numpy',
+    'matplotlib',
+    'geopandas',
+]
