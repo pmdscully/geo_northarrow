@@ -9,7 +9,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='geo_northarrow',
+    name='geonortharrow',
     version='v0.2.0-alpha',
     description='Python package of geo_northarrow for inserting north arrow polygons into geopandas, geoplot, matplotlib maps.',
     long_description=readme,
