@@ -2,8 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import geopandas
 from shapely.geometry import Polygon
+from matplotlib.patches import Rectangle
 
-def add_north_arrow(ax, scale=1, xlim_pos=.9, ylim_pos=.8, xT=None, yT=None, color='k', text_scaler=1.0, text_yT=1.0):
+def add_north_arrow(ax, scale=1, xlim_pos=.9, ylim_pos=.8, xT=None, yT=None, color='k', text_scaler=1.0, text_yT=1.0, background=False, bg_color='white', bg_padding=0.5):
     def t_s(xy,xT,yT,s): return (xT+(xy[0]*s),yT+(xy[1]*s))
     def get_default_scale_factor(ax):
         xax_diff = abs(max(ax.get_xlim())-min(ax.get_xlim()))
@@ -45,6 +46,19 @@ def add_north_arrow(ax, scale=1, xlim_pos=.9, ylim_pos=.8, xT=None, yT=None, col
     a = [t_s(t,xT,yT,scale) for t in a]
     b = [t_s(t,xT,yT,scale) for t in b]
     n_points = [t_s(t,xT,yT,scale) for t in n_points]
+
+     # Adicionando um "box" branco em torno da seta
+    if background:
+        padding = bg_padding * scale
+        x_min = min([x for x, y in a + b + n_points]) - padding
+        x_max = max([x for x, y in a + b + n_points]) + padding
+        y_min = min([y for x, y in a + b + n_points]) - padding
+        y_max = max([y for x, y in a + b + n_points]) + padding
+        
+        rect = Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, facecolor=bg_color, edgecolor='none')
+        ax.add_patch(rect)
+
+
     p1 = geopandas.GeoDataFrame([1], geometry=[Polygon(a)])
     p2 = geopandas.GeoDataFrame([1], geometry=[Polygon(b)])
     p3 = geopandas.GeoDataFrame([1], geometry=[Polygon(n_points)])
@@ -60,7 +74,7 @@ if __name__ == "__main__":
   #...
   #... your mapping code...
   #...
-  add_north_arrow(ax, scale=1.75, xlim_pos=.9025, ylim_pos=.165, color='#000', text_scaler=4, text_yT=-1.25)
+  add_north_arrow(ax, scale=1.75, xlim_pos=.9025, ylim_pos=.165, color='#000', text_scaler=4, text_yT=-1.25, background=True)
   
   # 
   # -- Just for the sample plots.
