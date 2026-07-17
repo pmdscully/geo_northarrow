@@ -4,7 +4,7 @@ import geopandas
 from shapely.geometry import Polygon
 from matplotlib.patches import Rectangle
 
-def add_north_arrow(ax, scale=1, xlim_pos=.9, ylim_pos=.8, xT=None, yT=None, color='k', text_scaler=1.0, text_yT=1.0, background=False, bg_color='white', bg_padding=0.5, lw=2):
+def add_north_arrow(ax, scale=1, xlim_pos=.9, ylim_pos=.8, xT=None, yT=None, color="k", text_scaler=1.0, text_yT=1.0, background=False, bg_color="white", bg_padding=0.5, lw=2, text_lw=0):
     def t_s(xy,xT,yT,s): return (xT+(xy[0]*s),yT+(xy[1]*s))
     def get_default_scale_factor(ax):
         xax_diff = abs(max(ax.get_xlim())-min(ax.get_xlim()))
@@ -64,7 +64,7 @@ def add_north_arrow(ax, scale=1, xlim_pos=.9, ylim_pos=.8, xT=None, yT=None, col
     p3 = geopandas.GeoDataFrame([1], geometry=[Polygon(n_points)])
     ax = p1.plot(fc="none", ec=color, lw=lw, ax=ax)
     p2.plot(fc=color, ec=color, lw=lw, ax=ax)
-    p3.plot(fc=color, ax=ax)
+    p3.plot(fc=color, ec=(color if text_lw else "none"), lw=text_lw, ax=ax)
 
 if __name__ == "__main__":
   fig, ax = plt.subplots(figsize=(2,3))
